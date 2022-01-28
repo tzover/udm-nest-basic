@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+  back:
+    image: ${PROJ_NAME}-back:latest
+    container_name: ${PROJ_NAME}-back
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+    volumes:
+      - ./back/app:/home/app
+      - back-volume:/home/app/node_modules
+    ports:
+      - ${DEV_PORT_BACK}:5000
+      - ${PROD_PORT_BACK}:5050
+    tty: true
+
+volumes:
+  back-volume:
+    name: ${PROJ_NAME}-back-volume
+    driver: local
